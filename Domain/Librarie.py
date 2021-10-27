@@ -10,12 +10,16 @@ def vanzare(id_carte, titlu, gen, pret, tip_reducere_client):
     '''
 
 def vanzare_obiect(id_vanzare, titlu, gen, pret, tip_reducere_client: str ):
-    return {'id_vanzare':id_vanzare,
-        'titlu':titlu,
-        'gen':gen,
-        'pret':pret,
-        'tip_reducere':tip_reducere_client,
-    }
+    '''
+    Gestioneaza o vanzare
+    :param id_vanzare:id-ul vanzarii
+    :param titlu: titlul cartii
+    :param gen: genul cartii
+    :param pret: pretul cartii
+    :param tip_reducere_client:
+    :return: vanzarea
+    '''
+    return (id_vanzare, titlu, gen, pret,tip_reducere_client)
 
 def get_id(vanzare):
     '''
@@ -23,28 +27,48 @@ def get_id(vanzare):
     :param vanzare: vanzarea
     :return: id-ul vanzarii
     '''
-    return vanzare['id_vanzare']
+    return vanzare[0]
 
 def get_titlu(carte):
     """
     TODO
-    :param carte:
-    :return:
+    :param carte:cartea vanduta
+    :return:titlul cartii vandute
     """
-    return carte['titlu']
+    return carte[1]
 
 
 def get_gen(carte):
-    return carte['gen']
+    '''
+    Genul cartii
+    :param carte:cartea vanduta
+    :return: genul cartii vandute
+    '''
+    return carte[2]
 
 
 def get_pret(carte):
-    return carte['pret']
+    '''
+    Pretul cartii
+    :param carte:cartea vanduta
+    :return: pretul cartii vandute
+    '''
+    return carte[3]
 
 
 def get_tip_reducere(carte):
-    return carte['tip_reducere']
+    '''
+    Reducerea in functie de tipul de client
+    :param carte: cartea vanduta
+    :return: reducerea tipului de client
+    '''
+    return carte[4]
 
 
 def get_str_vanzare(carte):
+    '''
+    Vanzarea
+    :param carte: obiectul vandut, cu specificatiile sale
+    :return:genereaza o vanzare ce contine toate detaliile obiectului vandut
+    '''
     return f'Vanzare cartea cu id-ul {get_id(carte)}, din genul {get_gen(carte)}, titlul {get_titlu(carte)}, pretul {get_pret(carte)}, cu reducerea {get_tip_reducere(carte)}.'
