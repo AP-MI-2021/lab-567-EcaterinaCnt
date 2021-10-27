@@ -84,6 +84,11 @@ def aplicare_reducere_10(pret):
     return pret-reduceri
 
 def modificare_vanzare(lst_vanzari):
+    '''
+    Modifica vanzarea initiala
+    :param lst_vanzari: vanzarea introdusa
+    :return:modifica pretul vanzarii in functie de tipul de abonament pe care il are clientul
+    '''
     for vanzare in lst_vanzari:
         reducere=get_tip_reducere(vanzare)
         id_vanzare=get_id(vanzare)
