@@ -1,6 +1,7 @@
 from Domain.Librarie import get_str_vanzare, get_titlu, get_gen, get_pret, get_tip_reducere, \
     vanzare, vanzare_obiect
-from Logic.CRUD import create, read, update, delete, modificare_vanzare
+from Logic.CRUD import create, read, update, delete
+from Logic.modificari import modificare_vanzare
 
 
 def show_menu():
