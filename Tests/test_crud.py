@@ -14,15 +14,10 @@ def get_data():
 
 def test_create():
     vanzari = get_data()
-    params = (10, 'titlu new', 'gen new', 20.32, 'None')
+    params = (1000, 'titlu new', 'gen new', 20.32, 'None')
     p_new = vanzare_obiect(*params)
     new_vanzari = create(vanzari, *params)
     assert len(new_vanzari) == len(vanzari) + 1
-
-    # found = False
-    # for prajitura in new_prajituri:
-    #     if prajitura == p_new:
-    #         found = True
     assert p_new in new_vanzari
 
 
@@ -30,7 +25,7 @@ def test_read():
     vanzari = get_data()
     some_c = vanzari[2]
     assert read(vanzari, get_id(some_c)) == some_c
-    assert read(vanzari, None) == vanzari
+    assert read(vanzari, None) == None
 
 
 def test_update():

@@ -1,9 +1,10 @@
 from Domain.Librarie import vanzare_obiect, get_id, get_titlu, get_gen, get_pret, get_tip_reducere
+from Logic.List_id import list_id
 
 
-def create(lst_vanzari, id_carte: int, titlu, gen, pret, tip_reducere):
+def create(lst_vanzari, id_vanzare: int, titlu, gen, pret, tip_reducere):
     '''
-    TODO
+   Creeaza
    :param lst_vanzari:lista de vanzari
    :param id_carte:
    :param titlu: 
@@ -12,9 +13,15 @@ def create(lst_vanzari, id_carte: int, titlu, gen, pret, tip_reducere):
    :param tip_reducere: 
    :return: 
     '''
-    vanzare_obiecte = vanzare_obiect(id_carte, titlu, gen, pret, tip_reducere)
-    #lst_vanzari.append(vanzare_obiecte)
-    return lst_vanzari + [vanzare_obiecte]
+    new_list=['None', 'Gold', 'Silver']
+    if id_vanzare in list_id(lst_vanzari):
+        raise ValueError(f'Exista deja o carte cu id-ul {id_vanzare}')
+    if tip_reducere not in new_list:
+        raise TypeError('Tip reducere necunoscut.')
+    else:
+        vanzare_obiecte = vanzare_obiect(id_vanzare, titlu, gen, pret, tip_reducere)
+        #lst_vanzari.append(vanzare_obiecte)
+        return lst_vanzari + [vanzare_obiecte]
 
 
 def read(lst_vanzari, id_carte: int=None):
@@ -31,7 +38,7 @@ def read(lst_vanzari, id_carte: int=None):
 
     if cartea_cu_id:
         return cartea_cu_id
-    return lst_vanzari
+    return None
 
 
 def update(lst_vanzari, new_vanzare):
@@ -41,6 +48,9 @@ def update(lst_vanzari, new_vanzare):
     :param new_vanzare: vanzarea care se va actualiza - id-ul trebuie sa fie unul existent.
     :return: o lista cu vanzari actualizata.
     """
+
+    if read(lst_vanzari, get_id(new_vanzare)) is None:
+        raise ValueError(f'Nu xista o vanzare cu id-ul {get_id(new_vanzare)} pe care sa o actualizam.')
 
     # lst_carti=[c1:(1,Mobidic), c2:(2,Hansel si Gretel)], cartea=(2, Scufita Rosie)
     new_vanzari = []
@@ -58,6 +68,9 @@ def delete(lst_vanzare, id_carte: int):
     :param id_carte:
     :return: o lista de vanzari fara cartea cu id-ul id_carte.
     """
+    if read(lst_vanzare, id_carte) is None:
+        raise ValueError(f'Nu xista o carte cu id-ul {id_carte} pe care sa o stergem.')
+
     new_vanzari = []
     for carte in lst_vanzare:
         if get_id(carte) != id_carte:
