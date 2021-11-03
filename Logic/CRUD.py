@@ -4,14 +4,14 @@ from Logic.List_id import list_id
 
 def create(lst_vanzari, id_vanzare: int, titlu, gen, pret, tip_reducere):
     '''
-   Creeaza
+   Creeaza o vanzare
    :param lst_vanzari:lista de vanzari
-   :param id_carte:
-   :param titlu: 
-   :param gen: 
-   :param pret: 
-   :param tip_reducere: 
-   :return: 
+   :param id_vanzare: id-ul vanzarii
+   :param titlu: titlul cartii din vanzare
+   :param gen: genul cartii din vanzare
+   :param pret: pretul vanzarii
+   :param tip_reducere: tipul de reducere
+   :return: returneaza o vanzare cu un id unic si detaliile ei
     '''
     new_list=['None', 'Gold', 'Silver']
     if id_vanzare in list_id(lst_vanzari):
