@@ -1,14 +1,16 @@
 from Domain.Librarie import get_str_vanzare, get_titlu, get_gen, get_pret, get_tip_reducere, \
     vanzare, vanzare_obiect
 from Logic.CRUD import create, read, update, delete
-from Logic.modificari import modificare_vanzare, change_gen, ord_price
+from Logic.modificari import modificare_vanzare, change_gen, ord_price, pret_minim, afisare_titluri_dupa_gen
 
 
 def show_menu():
     print('1. CRUD')
     print('2. Reducere pret pentru anumite vanzari.')
     print('3. Schimbarea genului unei carti cu titlul dat.')
-    print(('5. Ordonarea crescatoare a cartilor in functie de pret.'))
+    print('4. Determina pretul minim in functie de gen.')
+    print('5. Ordonarea crescatoare a cartilor in functie de pret.')
+    print('6 Afiseaza titlurile distincte in functie de gen.')
     print('x. Exit')
 
 
@@ -72,6 +74,27 @@ def handle_change_gen(vanzari):
         print('Eroare: ', ve)
     return vanzari
 
+def handle_pret_minim(vanzari):
+    pret=pret_minim(vanzari)
+    for gen in pret:
+        print('Genul {}, are pretul minim {}'.format(gen, pret[gen]))
+
+
+def handle_ordonare_pret(vanzari):
+    rezultat = ord_price(vanzari)
+    return rezultat
+
+def handle_afisare_titlu_dupa_gen(lista):
+    try:
+        new_list= afisare_titluri_dupa_gen(lista)
+        for gen in new_list:
+            if new_list[gen] != 1:
+                print("Genul {} are {} titluri".format(gen, new_list[gen]))
+            else:
+                print("Genul {} are un singur titlu".format(gen))
+    except ValueError as ve:
+        print("Eroare: {}".format(ve))
+        return lista
 
 def handle_crud(vanzari):
     while True:
@@ -111,10 +134,13 @@ def run_ui(vanzari):
             vanzari = modificare_vanzare(vanzari)
         elif optiune == '3':
             vanzari = handle_change_gen(vanzari)
+        elif optiune == '4':
+            vanzari=handle_pret_minim(vanzari)
+        elif optiune == '6':
+            vanzari = handle_afisare_titlu_dupa_gen(vanzari)
         elif optiune == '5':
-            vanzari = ord_price(vanzari)
+            vanzari = handle_ordonare_pret(vanzari)
         elif optiune == 'x':
             break
         else:
             print('Optiune invalida.')
-    return vanzari

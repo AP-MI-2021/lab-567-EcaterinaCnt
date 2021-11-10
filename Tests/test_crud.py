@@ -4,7 +4,7 @@ from Logic.CRUD import create, read, update, delete
 
 def get_data():
     return [
-        vanzare_obiect(1, 'c1', 'titlu 1', 50.0, 'None'),
+        vanzare_obiect(1, 'c1', 'titlu 1', 50.0, 'Silver'),
         vanzare_obiect(2, 'c2', 'titlu 2', 80.30, 'Gold'),
         vanzare_obiect(3, 'c3', 'titlu 3', 20, 'Silver'),
         vanzare_obiect(4, 'c4', 'titlu 4', 150, 'Gold'),
@@ -14,7 +14,7 @@ def get_data():
 
 def test_create():
     vanzari = get_data()
-    params = (1000, 'titlu new', 'gen new', 20.32, 'None')
+    params = (1000, 'titlu new', 'gen new', 20.32, 'Silver')
     p_new = vanzare_obiect(*params)
     new_vanzari = create(vanzari, *params)
     assert len(new_vanzari) == len(vanzari) + 1
@@ -30,7 +30,7 @@ def test_read():
 
 def test_update():
     vanzari = get_data()
-    c_updated = vanzare_obiect(1, 'c1000', 'titlu 1', 50.0, 'None')
+    c_updated = vanzare_obiect(1, 'c1000', 'titlu 1', 50.0, 'Silver')
     updated = update(vanzari, c_updated)
     assert c_updated in updated
     assert c_updated not in vanzari

@@ -19,7 +19,18 @@ def vanzare_obiect(id_vanzare, titlu, gen, pret, tip_reducere_client: str ):
     :param tip_reducere_client:
     :return: vanzarea
     '''
+    if id_vanzare == '' or titlu == '' or gen == '' :
+        raise ValueError('Id_vanzare, titlu, gen trebuie sa fie nenule.')
+    if pret is not None and not isinstance(pret, (float, int)):
+        raise ValueError('Pretul trebuie sa fie un numar.')
+    if pret is None:
+        price = 0
+    if pret < 0:
+        raise ValueError('Pretul nu poate fi negativ.')
+    #if tip_reducere_client != 'Silver' or tip_reducere_client!= 'Gold':
+        #raise ValueError('Tipul de reducere poate fi doar Silver sau Gold. ')
     return (id_vanzare, titlu, gen, pret,tip_reducere_client)
+
 
 def get_id(vanzare):
     '''
@@ -31,7 +42,7 @@ def get_id(vanzare):
 
 def get_titlu(carte):
     """
-    TODO
+    Titlul cartii din vanzare.
     :param carte:cartea vanduta
     :return:titlul cartii vandute
     """

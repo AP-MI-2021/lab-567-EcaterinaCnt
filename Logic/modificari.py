@@ -43,7 +43,13 @@ def change_gen(vanzari, titlu, gen):
 
 
 def ord_price(vanzari):
-    return sorted(vanzari, key=get_pret(vanzari))
+    '''
+    Ordoneaza vanzarile in functie de pret
+    :param vanzari: vanzarea care ne intereseaza
+    :return: returneaza lista cu vanzaril in ordinea preturilor
+    '''
+    return sorted(vanzari, key=get_pret)
+
 
 def modificare_vanzare(lst_vanzari):
     '''
@@ -62,7 +68,44 @@ def modificare_vanzare(lst_vanzari):
             lst_vanzari=update(lst_vanzari, vanzare_obiect(id_vanzare, titlu, gen, aplicare_reducere_5(pret), 'None'))
         elif reducere == 'Gold':
             lst_vanzari = update(lst_vanzari,vanzare_obiect(id_vanzare, titlu, gen, aplicare_reducere_10(pret), 'None'))
-        else:
-            raise TypeError('Reducerea este introdusa incorect.')
+        #else:
+            #raise TypeError('Reducerea este introdusa incorect.')
     return lst_vanzari
 
+
+def pret_minim(vanzari):
+    '''
+
+    :param vanzari:
+    :return:
+    '''
+    pret={}
+    for vanzare in vanzari:
+        gen=get_gen(vanzare)
+        if gen in pret:
+            if get_pret(vanzare)<pret[gen]:
+                pret[gen]=get_pret(vanzare)
+        else:
+            pret[gen]=get_pret(vanzare)
+    return pret
+
+
+def afisare_titluri_dupa_gen(vanzari):
+    '''
+    Afiseaza numarul de titluri distincte pentru fiecare gen
+    :param lista: o lista de vanzari
+    :return: numarul de titluri distincte pentru fiecare gen
+    '''
+    rezultat = {}
+    titluri =[]
+    for vanzare in vanzari:
+        gen = get_gen(vanzare)
+        titlu = get_titlu(vanzare)
+        if gen in vanzari:
+            if titlu not in titluri:
+                titluri.append(titlu)
+                rezultat[gen] += 1
+        else:
+            rezultat[gen] = 1
+            titluri.append(titlu)
+    return rezultat
