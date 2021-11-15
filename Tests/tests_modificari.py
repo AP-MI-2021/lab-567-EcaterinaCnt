@@ -23,7 +23,9 @@ def get_data():
 
 def test_modificare_vanzare():
     vanzari= get_data()
-    list=modificare_vanzare(vanzari)
+    undo_list=[]
+    redo_list=[]
+    list=modificare_vanzare(vanzari, undo_list, redo_list)
     assert len(vanzari)==len(list)
     for vanzare in list:
         assert get_tip_reducere(vanzare) == 'None'
@@ -36,22 +38,22 @@ def test_modificare_vanzare():
 
 def test_pret_minim():
     vanzari=[]
-    vanzari=create(vanzari, 1, 'c1', 'g1', 10, 'Silver')
-    vanzari=create(vanzari, 2, 'c2', 'g2', 100, 'Silver')
-    vanzari=create(vanzari, 3, 'c3', 'g2', 1000, 'Gold')
+    vanzari=create(vanzari, 1, 'c1', 'g1', 10, 'Silver', [],[])
+    vanzari=create(vanzari, 2, 'c2', 'g2', 100, 'Silver',[],[])
+    vanzari=create(vanzari, 3, 'c3', 'g2', 1000, 'Gold',[],[])
     pret=pret_minim(vanzari)
     assert len(pret)==2
     assert pret['g2']==100
 
 def test_afisare_titluri_dupa_gen():
     lista = []
-    lista = create(lista, 1, "Great Gatsby", "clasica", 15, "Gold")
-    lista = create(lista, 2, "Tabloul", "mister", 20, "Silver")
-    lista = create(lista, 3, "Crima si pedeapsa", "clasica", 30, "Silver")
-    lista = create(lista, 4, "Crima si pedeapsa", "clasica", 30, "Gold")
+    lista = create(lista, 1, "Great Gatsby", "clasica", 15, "Gold", [], [])
+    lista = create(lista, 2, "Tabloul", "mister", 20, "Silver",[],[])
+    lista = create(lista, 3, "Crima si pedeapsa", "clasica", 30, "Silver", [], [])
+    lista = create(lista, 4, "Crima si pedeapsa", "clasica", 30, "Gold", [], [])
 
     new_list= afisare_titluri_dupa_gen(lista)
 
     assert len(new_list) == 2
-    #assert new_list["clasica"] == 3
-    #assert new_list["mister"] == 1
+    assert new_list["clasica"] == 2
+    assert new_list["mister"] == 1

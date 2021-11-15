@@ -13,25 +13,34 @@ def get_data():
 
 
 def test_create():
+    undo_list=[]
+    redo_list=[]
     vanzari = get_data()
-    params = (1000, 'titlu new', 'gen new', 20.32, 'Silver')
-    p_new = vanzare_obiect(*params)
+    params = (1000, 'titlu new', 'gen new', 20.32, 'Silver', [], [])
+    p_new = vanzare_obiect(*params[:-2])
     new_vanzari = create(vanzari, *params)
-    assert len(new_vanzari) == len(vanzari) + 1
-    assert p_new in new_vanzari
+    assert len(new_vanzari) == 6
+
+    found = False
+    for vanzare in new_vanzari:
+        if vanzare == p_new:
+            found = True
+#    assert p_new in new_vanzari
 
 
 def test_read():
     vanzari = get_data()
     some_c = vanzari[2]
     assert read(vanzari, get_id(some_c)) == some_c
-    assert read(vanzari, None) == None
+    assert read(vanzari, None) is None
 
 
 def test_update():
     vanzari = get_data()
+    undo_list=[]
+    redo_list=[]
     c_updated = vanzare_obiect(1, 'c1000', 'titlu 1', 50.0, 'Silver')
-    updated = update(vanzari, c_updated)
+    updated = update(vanzari, c_updated, undo_list, redo_list)
     assert c_updated in updated
     assert c_updated not in vanzari
     assert len(updated) == len(vanzari)
@@ -39,9 +48,11 @@ def test_update():
 
 def test_delete():
     vanzari = get_data()
+    undo_list=[]
+    redo_list=[]
     to_delete = 3
     c_deleted = read(vanzari, to_delete)
-    deleted = delete(vanzari, to_delete)
+    deleted = delete(vanzari, to_delete, undo_list, redo_list)
     assert c_deleted not in deleted
     assert c_deleted in vanzari
     assert len(deleted) == len(vanzari) - 1

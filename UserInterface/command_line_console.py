@@ -1,10 +1,10 @@
-from Domain.Librarie import vanzare_obiect
+from Domain.Librarie import vanzare_obiect, get_str_vanzare
 from Logic.CRUD import create, delete
 
 
 def show_all(vanzari):
     for vanzare in vanzari:
-        print(vanzare_obiect(vanzare))
+        print(get_str_vanzare(vanzare))
 
 
 def main_line(vanzari):
@@ -22,10 +22,10 @@ def main_line(vanzari):
                 break
             else:
                 for optiune in optiuni:
-                    opt = optiune.split(",")
+                    opt = optiune.split(", ")
                     if (opt[0] == "add"):
                         try:
-                            vanzari = create(vanzari, int(opt[1]), opt[2], opt[3], opt[4], opt[5])
+                            vanzari = create(vanzari, int(opt[1]), opt[2], opt[3], float(opt[4]), opt[5])
                         except ValueError as ve:
                             print("Eroare: {}".format(ve))
                     elif opt[0] == "showall":
