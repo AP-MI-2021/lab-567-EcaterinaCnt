@@ -25,13 +25,13 @@ def main_line(vanzari):
                     opt = optiune.split(", ")
                     if (opt[0] == "add"):
                         try:
-                            vanzari = create(vanzari, int(opt[1]), opt[2], opt[3], float(opt[4]), opt[5])
+                            vanzari = create(vanzari, int(opt[1]), opt[2], opt[3], float(opt[4]), opt[5], [], [])
                         except ValueError as ve:
                             print("Eroare: {}".format(ve))
                     elif opt[0] == "showall":
                         show_all(vanzari)
                     elif opt[0] == "delete":
-                        vanzari = delete(vanzari, int(opt[1]))
+                        vanzari = delete(vanzari, int(opt[1]), [], [])
                     else:
                         print("Optiune gresita, scrieti 'help' pentru a vedea optiunile disponibile")
 
