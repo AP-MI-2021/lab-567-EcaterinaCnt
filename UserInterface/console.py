@@ -104,8 +104,6 @@ def handle_undo(vanzari, undo_list, redo_list):
     undo_result = do_undo_inefficient(undo_list, redo_list, vanzari)
     if undo_result is not None:
         return undo_result
-    else:
-        print('Nu se poate face undo.')
     return vanzari
 
 
@@ -113,8 +111,6 @@ def handle_redo(vanzari, undo_list, redo_list):
     redo_result = do_redo_inefficient(undo_list, redo_list, vanzari)
     if redo_result is not None:
         return redo_result
-    else:
-        print('Nu se poate face redo.')
     return vanzari
 
 def handle_crud(vanzari, undo_list, redo_list):
@@ -164,9 +160,15 @@ def run_ui(vanzari, undo_list, redo_list):
             elif optiune == '5':
                 vanzari = handle_ordonare_pret(vanzari, undo_list, redo_list)
             elif optiune == 'u':
-                vanzari = handle_undo(vanzari, undo_list, redo_list)
+                if len(undo_list) > 0:
+                    vanzari = handle_undo(vanzari, undo_list, redo_list)
+                else:
+                    print('Nu se poate face undo.')
             elif optiune == 'r':
-                vanzari = handle_redo(vanzari, undo_list, redo_list)
+                if len(redo_list) > 0:
+                    vanzari = handle_redo(vanzari, undo_list, redo_list)
+                else:
+                    print('Nu se poate face redo.')
             elif optiune == 'x':
                 break
             else:
