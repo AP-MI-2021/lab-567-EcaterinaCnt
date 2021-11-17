@@ -19,7 +19,7 @@ def main():
     if meniu == "clasic":
         run_ui(vanzari, undo_list, redo_list)
     elif meniu == "comenzi":
-        main_line([])
+        main_line(vanzari, undo_list, redo_list)
 
 
 if __name__=='__main__':
